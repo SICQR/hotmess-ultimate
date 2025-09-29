@@ -1,0 +1,3 @@
+Instructions for pushing audio files into the RadioKing FTP hot folder.
+
+Expected format: MP3, 320kbps, under 20MB.

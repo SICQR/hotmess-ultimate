@@ -1,0 +1,141 @@
+generator client { provider = "prisma-client-js" }
+datasource db { provider = "postgresql"; url = env("DATABASE_URL") }
+
+model User {
+  id              String    @id @default(uuid())
+  created_at      DateTime? @db.Timestamptz(6)
+  username        String?   @unique
+  email           String?   @unique
+  membership_tier String?
+  AuditLog        AuditLog[]
+  Notification    Notification[]
+  Consent         Consent[]
+  Event           Event[]
+  QrCode          QrCode[]  @relation("UserQrCodes")
+  QrScan          QrScan[]  @relation("UserQrScans")
+  Xp_user         XpLog[]   @relation("UserXp", fields: [], references: [])
+  Xp_aff          XpLog[]   @relation("AffiliateXp", fields: [], references: [])
+  Report_reporter Report[]  @relation("Reporter", fields: [], references: [])
+  Report_target   Report[]  @relation("Target", fields: [], references: [])
+  Payout          Payout[]
+}
+
+model XpLog {
+  id          String    @id @default(uuid())
+  user_id     String?
+  affiliate_id String?
+  xp_amount   Int
+  reason      String?
+  created_at  DateTime? @db.Timestamptz(6)
+  User_user   User?     @relation("UserXp", fields: [user_id], references: [id])
+  User_aff    User?     @relation("AffiliateXp", fields: [affiliate_id], references: [id])
+}
+
+model Report {
+  id          String    @id @default(uuid())
+  reporter_id String?
+  target_id   String?
+  target_type String?
+  reason      String?
+  notes       String?
+  status      String?   @default("open")
+  created_at  DateTime? @db.Timestamptz(6)
+  Reporter    User?     @relation("Reporter", fields: [reporter_id], references: [id])
+  Target      User?     @relation("Target", fields: [target_id], references: [id])
+}
+
+model RadioShow {
+  id          String    @id @default(uuid())
+  slug        String    @unique
+  title       String
+  description String?
+  host        String?
+  schedule    String?
+  stream_url  String?
+  sponsor     String?
+  created_at  DateTime? @db.Timestamptz(6)
+}
+
+model MembershipTier {
+  id         Int       @id @default(autoincrement())
+  name       String?   @unique
+  price      Decimal?  @db.Decimal
+  benefits   Json?
+  created_at DateTime? @db.Timestamptz(6)
+}
+
+model QrCode {
+  id          String    @id @default(uuid())
+  owner_id    String?
+  target_url  String?
+  scans       Int?      @default(0)
+  created_at  DateTime? @db.Timestamptz(6)
+  Owner       User?     @relation("UserQrCodes", fields: [owner_id], references: [id])
+  QrScan      QrScan[]
+}
+
+model QrScan {
+  id          String    @id @default(uuid())
+  qr_id       String?
+  scanner_id  String?
+  created_at  DateTime? @db.Timestamptz(6)
+  QrCode      QrCode?   @relation(fields: [qr_id], references: [id])
+  Scanner     User?     @relation("UserQrScans", fields: [scanner_id], references: [id])
+}
+
+model AffiliateRelation {
+  id          String    @id @default(uuid())
+  referrer_id String?
+  referred_id String?
+  created_at  DateTime? @db.Timestamptz(6)
+  Referrer    User?     @relation("ReferrerRel", fields: [referrer_id], references: [id])
+  Referred    User?     @relation("ReferredRel", fields: [referred_id], references: [id])
+}
+
+model Payout {
+  id          String    @id @default(uuid())
+  user_id     String?
+  amount      Decimal   @db.Decimal
+  method      String?
+  status      String?   @default("pending")
+  created_at  DateTime? @db.Timestamptz(6)
+  User        User?     @relation(fields: [user_id], references: [id])
+}
+
+model Notification {
+  id          String    @id @default(uuid())
+  user_id     String?
+  type        String?
+  payload     Json?
+  read        Boolean?  @default(false)
+  created_at  DateTime? @db.Timestamptz(6)
+  User        User?     @relation(fields: [user_id], references: [id])
+}
+
+model AuditLog {
+  id          String    @id @default(uuid())
+  actor_id    String?
+  action      String?
+  target      String?
+  metadata    Json?
+  created_at  DateTime? @db.Timestamptz(6)
+  Actor       User?     @relation(fields: [actor_id], references: [id])
+}
+
+model Consent {
+  id          String    @id @default(uuid())
+  user_id     String?
+  type        String?
+  granted     Boolean?
+  granted_at  DateTime? @db.Timestamptz(6)
+  User        User?     @relation(fields: [user_id], references: [id])
+}
+
+model Event {
+  id          String    @id @default(uuid())
+  user_id     String?
+  type        String?
+  payload     Json?
+  created_at  DateTime? @db.Timestamptz(6)
+  User        User?     @relation(fields: [user_id], references: [id])
+}

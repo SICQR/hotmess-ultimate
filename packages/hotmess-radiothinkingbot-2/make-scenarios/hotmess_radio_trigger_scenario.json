@@ -1,0 +1,11 @@
+{
+  "name": "HOTMESS Radio Trigger",
+  "triggers": ["Webhook", "Telegram Command", "QR Scan"],
+  "actions": [
+    "Pull track from Spotify or SoundCloud based on mood/time",
+    "Select stinger or generate VO with ElevenLabs",
+    "Push final MP3 to RadioKing FTP",
+    "Log action to Google Sheets",
+    "Send message via Telegram"
+  ]
+}

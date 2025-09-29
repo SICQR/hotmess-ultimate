@@ -1,0 +1,8 @@
+package,dep,devDep
+@hotmess/admin,10,14
+@hotmess/web,3,4
+hotmess,27,12
+hotmess-all-in-admin,8,16
+hotmess-all-in-one,4,0
+hotmess-ootb,7,17
+hotmess-supabase-discovery,2,0

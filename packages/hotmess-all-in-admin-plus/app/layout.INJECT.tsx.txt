@@ -1,0 +1,5 @@
+// Add this inside your <body> just above </body>:
+/*
+  import CookieBanner from '@/app/(shell)/components/CookieBanner'
+  <CookieBanner />
+*/

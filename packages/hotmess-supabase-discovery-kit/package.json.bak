@@ -1,0 +1,1 @@
+{"dependencies": {"@supabase/supabase-js": "latest", "pg": "latest"}, "name": "hotmess-supabase-discovery", "private": true, "scripts": {"discover": "node scripts/discover.mjs"}, "type": "module"}

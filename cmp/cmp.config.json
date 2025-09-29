@@ -1,0 +1,32 @@
+{
+  "version": "1.0",
+  "categories": [
+    {
+      "id": "essential",
+      "name": "Essential",
+      "description": "Required for security and site functionality",
+      "consentRequired": false
+    },
+    {
+      "id": "analytics",
+      "name": "Analytics",
+      "description": "Helps us understand usage",
+      "consentRequired": true
+    },
+    {
+      "id": "marketing",
+      "name": "Marketing",
+      "description": "Advertising & remarketing",
+      "consentRequired": true
+    }
+  ],
+  "ui": {
+    "language": "en",
+    "country": "UK"
+  },
+  "storage": {
+    "method": "cookie",
+    "name": "hm_cmp",
+    "expiryDays": 180
+  }
+}

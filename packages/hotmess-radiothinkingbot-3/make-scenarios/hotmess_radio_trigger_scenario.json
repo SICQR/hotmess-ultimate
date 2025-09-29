@@ -1,0 +1,36 @@
+{
+  "name": "HOTMESS Radio Trigger",
+  "description": "Triggers from QR, Telegram, or schedule to pull music, inject stinger/VO, push to RadioKing, and log.",
+  "modules": [
+    {
+      "name": "Trigger",
+      "type": "Webhook or Telegram Command",
+      "description": "Starts when user scans QR, sends Telegram message, or at scheduled time."
+    },
+    {
+      "name": "Fetch Music",
+      "type": "HTTP Module",
+      "description": "Calls SoundCloud or Spotify API to retrieve track by mood tag or time slot."
+    },
+    {
+      "name": "Stinger/VO Selection",
+      "type": "Router",
+      "description": "Chooses a stinger or VO file based on context (e.g. /confess = Stewart Who, late = 3Day drop)."
+    },
+    {
+      "name": "FTP Upload",
+      "type": "RadioKing Sync",
+      "description": "Pushes final MP3 into RadioKing auto-DJ folder via FTP."
+    },
+    {
+      "name": "Logger",
+      "type": "Google Sheets",
+      "description": "Logs the trigger, track used, stinger applied, timestamp, and outcome."
+    },
+    {
+      "name": "Telegram Reply",
+      "type": "Telegram Module",
+      "description": "Sends confirmation and affiliate/care message to user."
+    }
+  ]
+}

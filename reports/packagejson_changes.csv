@@ -1,0 +1,15 @@
+path,modified
+package.json,False
+apps/hotmess-all-in-admin/package.json,True
+apps/hotmess-dj-bios-patch/package.json,True
+apps/hotmess-out-of-the-box/package.json,True
+apps/hotmess-repo/package.json,True
+apps/hotmess-repo/apps/web/package.json,False
+apps/hotmess-repo-enterprise/package.json,True
+apps/hotmess-repo-enterprise/apps/web/package.json,False
+apps/hotmess-repo-final/package.json,True
+apps/hotmess-repo-final/apps/web/package.json,False
+apps/admin/package.json,True
+apps/web/package.json,True
+packages/hotmess-ops-pack/ops_pack/apps/admin/package.json,True
+packages/hotmess-supabase-discovery-kit/package.json,True

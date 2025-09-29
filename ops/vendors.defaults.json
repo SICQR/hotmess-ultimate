@@ -1,0 +1,17 @@
+{
+  "azuracast": {
+    "base_url": "https://radio.example.com",
+    "api_key": "CHANGE_ME",
+    "station_id": 1
+  },
+  "make": {
+    "aftercare_webhook": "https://hook.integromat.com/CHANGE_ME"
+  },
+  "telegram": {
+    "bot_token": "CHANGE_ME",
+    "announce_channel": "@hotmess_radio"
+  },
+  "stripe": {
+    "secret_key": "sk_live_CHANGE_ME"
+  }
+}
