@@ -1,4 +1,10 @@
 {
   "/api/now-playing/route": "app/api/now-playing/route.js",
-  "/page": "app/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
+  "/(site)/hosts/page": "app/(site)/hosts/page.js",
+  "/(site)/timetable/page": "app/(site)/timetable/page.js",
+  "/(site)/membership/page": "app/(site)/membership/page.js",
+  "/(site)/shop/page": "app/(site)/shop/page.js",
+  "/(site)/press/page": "app/(site)/press/page.js"
 }
