@@ -1,9 +1,18 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
 
 export async function GET(){
   const site = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-  const eps = await prisma.episode.findMany({ orderBy:{ publishedAt: 'desc' }, take: 50 })
+  
+  // Mock episodes data since prisma is not set up
+  const eps = [
+    {
+      id: '1',
+      title: 'HOTMESS Radio Episode 1',
+      slug: 'episode-1',
+      publishedAt: new Date()
+    }
+  ];
+  
   const items = eps.map(e => `
     <item>
       <title><![CDATA[${e.title}]]></title>

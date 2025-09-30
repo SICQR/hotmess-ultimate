@@ -1,8 +1,8 @@
-export async function POST(req) {
-  const { userId, subscription } = await req.json();
-  // Store subscription in DB
-  return new Response(JSON.stringify({ status: "subscribed" }), { headers: { "Content-Type": "application/json" } });
-}
+export async function POST(req: Request) {
+  try {
+    const { userId, subscription } = await req.json();
+    // Store subscription in DB
+    return Response.json({ status: "subscribed" });
   } catch (error) {
     console.error("Push subscribe error:", error);
     return Response.json(

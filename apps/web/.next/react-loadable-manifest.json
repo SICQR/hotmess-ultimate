@@ -1,1 +1,24 @@
-{}
+{
+  "../../node_modules/@supabase/auth-js/dist/module/lib/helpers.js -> @supabase/node-fetch": {
+    "id": 4412,
+    "files": []
+  },
+  "../../node_modules/@supabase/functions-js/dist/module/helper.js -> @supabase/node-fetch": {
+    "id": 4412,
+    "files": []
+  },
+  "../../node_modules/@supabase/realtime-js/dist/module/RealtimeClient.js -> @supabase/node-fetch": {
+    "id": 4412,
+    "files": []
+  },
+  "../../node_modules/@supabase/realtime-js/dist/module/RealtimeClient.js -> ws": {
+    "id": 745,
+    "files": [
+      "static/chunks/745.fb69f7ae99454b20.js"
+    ]
+  },
+  "../../node_modules/@supabase/storage-js/dist/module/lib/helpers.js -> @supabase/node-fetch": {
+    "id": 4412,
+    "files": []
+  }
+}

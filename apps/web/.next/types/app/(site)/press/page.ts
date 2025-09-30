@@ -1,4 +1,4 @@
-// File: /Users/philipgizzie/Downloads/untitled folder 7/hotmess-ultimate/apps/web/app/(site)/press/page.tsx
+// File: /home/runner/work/hotmess-ultimate/hotmess-ultimate/apps/web/app/(site)/press/page.tsx
 import * as entry from '../../../../../app/(site)/press/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
