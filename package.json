@@ -1,0 +1,25 @@
+{
+  "name": "hotmess-ultimate",
+  "version": "1.0.0",
+  "description": "Hotmess Ultimate - A simple static website",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve .",
+    "deploy": "vercel --prod"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SICQR/hotmess-ultimate.git"
+  },
+  "keywords": [
+    "static",
+    "website",
+    "vercel"
+  ],
+  "author": "SICQR",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SICQR/hotmess-ultimate/issues"
+  },
+  "homepage": "https://github.com/SICQR/hotmess-ultimate#readme"
+}
