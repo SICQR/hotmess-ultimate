@@ -10,13 +10,63 @@ Clone the repository:
 
 ```bash
 git clone https://github.com/SICQR/hotmess-ultimate.git
+cd hotmess-ultimate
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+## Building
+
+Build the project:
+
+```bash
+npm run build
+```
+
+This will compile TypeScript files from `src/` to JavaScript in `dist/`.
+
+## Running
+
+Run the built application:
+
+```bash
+npm start
+```
+
+Or build and run in one command:
+
+```bash
+npm run dev
+```
+
+## Available Scripts
+
+- `npm run build` - Compile TypeScript to JavaScript
+- `npm start` - Run the compiled application
+- `npm run dev` - Build and run in one command
+- `npm run clean` - Remove build artifacts
+- `npm run rebuild` - Clean and rebuild the project
+
+## Project Structure
+
+```
+hotmess-ultimate/
+├── src/           # TypeScript source files
+│   └── index.ts   # Main entry point
+├── dist/          # Compiled JavaScript (generated)
+├── package.json   # Project dependencies and scripts
+└── tsconfig.json  # TypeScript configuration
 ```
 
 ## Features
 
-- Feature 1
-- Feature 2
-- Feature 3
+- TypeScript support
+- Build system with npm scripts
+- Modular architecture
 
 ## Contributing
 
