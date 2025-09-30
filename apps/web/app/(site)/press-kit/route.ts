@@ -5,7 +5,7 @@ import path from 'node:path'
 export async function GET(){
   const filePath = path.join(process.cwd(), 'public', 'press', 'press-kit.zip')
   const buf = await fs.readFile(filePath)
-  const res = new NextResponse(buf, {
+  const res = new NextResponse(buf as any, {
     headers: {
       'Content-Type': 'application/zip',
       'Content-Disposition': 'attachment; filename="HOTMESS-press-kit.zip"',
