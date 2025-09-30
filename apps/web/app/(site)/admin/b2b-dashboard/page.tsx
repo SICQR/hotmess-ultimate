@@ -1,9 +1,30 @@
+"use client";
+
 import useSWR from "swr";
+import { useState } from "react";
+import LuxButton from "@/components/LuxButton";
+
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
+interface Partner {
+  name: string;
+  sales: number;
+  tier: string;
+  lastContact: string;
+  revenue?: number;
+  commissionRate?: number;
+}
+
+interface AnalyticsData {
+  partners: Partner[];
+  totalRevenue: number;
+  monthlyGrowth: number;
+  activeDeals: number;
+}
+
 export default function B2BDashboard() {
-  const { data } = useSWR("/api/b2b-analytics", fetcher);
-  return (
+  const { data, error, isLoading } = useSWR<AnalyticsData>("/api/b2b-analytics", fetcher);
+  const [selectedPartner, setSelectedPartner] = useState<string | null>(null);
 
   const getTierColor = (tier: string) => {
     const colors = {

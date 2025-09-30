@@ -1,3 +1,11 @@
+interface CustomPushSubscription {
+  endpoint: string;
+  keys: {
+    auth: string;
+    p256dh: string;
+  };
+}
+
 export async function subscribeToPush(userId: string, subscription: any) {
   await fetch("/api/push-subscribe", {
     method: "POST",

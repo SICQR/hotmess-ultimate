@@ -1,4 +1,10 @@
-export async function createCrmLead({ name, email, company }) {
+interface CreateCrmLeadParams {
+  name: string;
+  email: string;
+  company?: string;
+}
+
+export async function createCrmLead({ name, email, company }: CreateCrmLeadParams) {
   const sfToken = process.env.SALESFORCE_TOKEN;
   if (!sfToken) throw new Error("Salesforce token not set");
   const res = await fetch("https://yourinstance.salesforce.com/services/data/v53.0/sobjects/Lead", {

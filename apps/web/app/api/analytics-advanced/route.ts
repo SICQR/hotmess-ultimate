@@ -1,13 +1,21 @@
 import { NextRequest } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+function getSupabaseClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  
+  if (!supabaseUrl || !supabaseKey) {
+    throw new Error('Supabase credentials not configured');
+  }
+  
+  return createClient(supabaseUrl, supabaseKey);
+}
 
 export async function GET() {
   try {
+    const supabase = getSupabaseClient();
+    
     // Get advanced analytics data
     const { data: analytics, error } = await supabase
       .from('analytics')
@@ -57,6 +65,7 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
+    const supabase = getSupabaseClient();
     const { userId, event, metadata } = await req.json();
 
     // Track user engagement event

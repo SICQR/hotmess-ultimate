@@ -1,9 +1,23 @@
-export async function GET(req) {
-  return new Response(JSON.stringify({
-    partners: [
-      { name: "ASOS", sales: 120, tier: "Gold", lastContact: "2025-09-22" },
-      { name: "Amazon", sales: 80, tier: "Silver", lastContact: "2025-09-19" }
-    ]
+export async function GET() {
+  try {
+    const analyticsData = {
+      partners: [
+        {
+          name: "ASOS",
+          sales: 120000,
+          tier: "Gold",
+          lastContact: "2025-09-22",
+          revenue: 18000,
+          commissionRate: 15
+        },
+        {
+          name: "Amazon",
+          sales: 80000,
+          tier: "Silver",
+          lastContact: "2025-09-19",
+          revenue: 8000,
+          commissionRate: 10
+        },
         {
           name: "Selfridges",
           sales: 95000,
