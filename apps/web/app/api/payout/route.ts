@@ -1,17 +1,25 @@
 import Stripe from "stripe";
 import { NextRequest } from "next/server";
 import { sendTelegramMessage } from "@/lib/telegram";
-import { createClient } from "@supabase/supabase-js";
+import { getSupabaseServerClient } from "@/lib/supabaseServer";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2022-11-15" });
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+function getStripeClient() {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) throw new Error('Stripe key not configured');
+  return new Stripe(key, { apiVersion: "2025-08-27.basil" });
+}
 
 export async function POST(req: NextRequest) {
   try {
+    const stripe = getStripeClient();
+    const supabase = getSupabaseServerClient();
+    if (!supabase) {
+      return Response.json(
+        { error: "Database not configured" },
+        { status: 503 }
+      );
+    }
+    
     const { refCode, amount, email, paymentMethod = "PayPal" } = await req.json();
 
     if (!refCode || !amount || !email) {

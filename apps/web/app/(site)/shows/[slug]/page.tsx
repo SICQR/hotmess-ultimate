@@ -2,13 +2,14 @@ import fs from 'node:fs'
 import path from 'node:path'
 export const dynamic = 'force-static'
 
-export async function generateMetadata({ params }:{ params:{ slug:string } }) {
+export async function generateMetadata({ params }:{ params: Promise<{ slug:string }> }) {
+  const { slug } = await params;
   // Try to map slug to press hero
-  const hero = `/img/press/${params.slug}-hero-3000x2000.jpg`
+  const hero = `/img/press/${slug}-hero-3000x2000.jpg`
   return {
-    title: `HOTMESS — ${params.slug}`,
+    title: `HOTMESS — ${slug}`,
     description: 'Show details, links and bio.',
-    openGraph: { title: `HOTMESS — ${params.slug}`, description: 'Show details, links and bio.', images: [{ url: hero, width: 3000, height: 2000 }] },
+    openGraph: { title: `HOTMESS — ${slug}`, description: 'Show details, links and bio.', images: [{ url: hero, width: 3000, height: 2000 }] },
     twitter: { card: 'summary_large_image' }
   }
 }
@@ -24,8 +25,9 @@ function ExternalLinks({ links }:{ links?: {label:string, href:string}[] }){
     </div>
   )
 }
-export default function Show({ params }:{ params:{ slug:string } }){
-  const m:any = loadMap()[params.slug] || {}
+export default async function Show({ params }:{ params: Promise<{ slug:string }> }){
+  const { slug } = await params;
+  const m:any = loadMap()[slug] || {}
   return (
     <main className="container">
       <div className="hero">
@@ -33,7 +35,7 @@ export default function Show({ params }:{ params:{ slug:string } }){
         <img src={m.hero || '/img/radio-neon-logo.png'} alt={m.alt || 'Show hero'} />
         <div className="overlay">
           <h1>{m.title || 'Show'}</h1>
-          <p><a className="cta" href={`/shows/${params.slug}/bio`}>Read bio</a></p>
+          <p><a className="cta" href={`/shows/${slug}/bio`}>Read bio</a></p>
           {m.sponsor && <div className="kicker">Sponsored by {m.sponsor}</div>}
         </div>
       </div>

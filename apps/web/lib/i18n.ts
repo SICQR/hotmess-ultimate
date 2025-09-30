@@ -1,9 +1,12 @@
+type Language = 'en' | 'es';
+
 export const messages = {
   en: {
     welcome: "Welcome to HOTMESS",
     affiliate: "Affiliate Portal",
     partner: "Partner Login",
     join: "Join Now"
+  },
   es: {
     welcome: "Bienvenido a HOTMESS",
     affiliate: "Portal de Afiliados",

@@ -1,9 +1,15 @@
+"use client";
+
 import useSWR from "swr";
 
 const fetcher = (url: string) => fetch(url).then(r => r.json());
 
 export default function B2BDashboard() {
-  const { data } = useSWR("/api/b2b-analytics", fetcher);
+  const { data, error, isLoading } = useSWR("/api/b2b-analytics-v4", fetcher);
+  
+  if (isLoading) return <div className="min-h-screen bg-black text-white p-8">Loading...</div>;
+  if (error) return <div className="min-h-screen bg-black text-white p-8">Failed to load</div>;
+  
   return (
     <div className="min-h-screen bg-black text-white p-8">
       <h1 className="text-4xl font-bold mb-8">B2B Dashboard</h1>

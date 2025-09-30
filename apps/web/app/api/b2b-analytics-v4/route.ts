@@ -1,4 +1,4 @@
-export async function GET(req) {
+export async function GET() {
   return new Response(JSON.stringify({
     partners: [
       { name: "ASOS", sales: 120, tier: "Gold", lastContact: "2025-09-22" },

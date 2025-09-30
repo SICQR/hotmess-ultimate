@@ -1,21 +1,29 @@
 import { NextRequest } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { getSupabaseServerClient } from '@/lib/supabaseServer';
 import webpush from 'web-push';
 
-// Configure VAPID keys for web push
-webpush.setVapidDetails(
-  'mailto:admin@hotmess.radio',
-  process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
-  process.env.VAPID_PRIVATE_KEY!
-);
+function configureWebPush() {
+  const publicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+  const privateKey = process.env.VAPID_PRIVATE_KEY;
+  
+  if (publicKey && privateKey) {
+    webpush.setVapidDetails(
+      'mailto:admin@hotmess.radio',
+      publicKey,
+      privateKey
+    );
+  }
+}
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+configureWebPush();
 
 export async function POST(req: NextRequest) {
   try {
+    const supabase = getSupabaseServerClient();
+    if (!supabase) {
+      return Response.json({ error: "Database not configured" }, { status: 503 });
+    }
+    
     const { title, body, userId, icon, url } = await req.json();
 
     let subscriptions;

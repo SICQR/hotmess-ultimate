@@ -1,13 +1,13 @@
 import { NextRequest } from "next/server";
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+import { getSupabaseServerClient } from "@/lib/supabaseServer";
 
 export async function GET() {
   try {
+    const supabase = getSupabaseServerClient();
+    if (!supabase) {
+      return Response.json({ error: "Database not configured" }, { status: 503 });
+    }
+    
     // Get top 20 affiliates by total sales
     const { data: topAffiliates, error } = await supabase
       .rpc('get_affiliate_leaderboard');

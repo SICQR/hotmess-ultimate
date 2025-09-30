@@ -1,10 +1,5 @@
-import { createClient } from "@supabase/supabase-js";
+import { getSupabaseServerClient } from "./supabaseServer";
 import { sendTelegramMessage, sendAffiliateAlert } from "./telegram";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
 
 export interface ReferralEvent {
   ref_code: string;
@@ -17,6 +12,12 @@ export interface ReferralEvent {
 
 export async function trackReferral(data: ReferralEvent) {
   try {
+    const supabase = getSupabaseServerClient();
+    if (!supabase) {
+      console.warn("Database not configured, skipping referral tracking");
+      return null;
+    }
+    
     // Insert referral event into database
     const { data: referral, error } = await supabase
       .from("referrals")
@@ -60,6 +61,12 @@ export async function generateReferralCode(userId: string): Promise<string> {
   const code = `HM${Date.now().toString(36).toUpperCase()}`;
   
   try {
+    const supabase = getSupabaseServerClient();
+    if (!supabase) {
+      console.warn("Database not configured, returning generated code");
+      return code;
+    }
+    
     const { error } = await supabase
       .from("affiliate_codes")
       .insert({
@@ -84,6 +91,16 @@ export async function generateReferralCode(userId: string): Promise<string> {
 
 export async function getAffiliateStats(refCode: string) {
   try {
+    const supabase = getSupabaseServerClient();
+    if (!supabase) {
+      return {
+        totalSales: 0,
+        totalReferrals: 0,
+        conversionRate: 0,
+        recentEvents: []
+      };
+    }
+    
     const { data, error } = await supabase
       .from("referrals")
       .select("*")
@@ -112,6 +129,11 @@ export async function getAffiliateStats(refCode: string) {
 
 export async function checkMilestones(refCode: string) {
   try {
+    const supabase = getSupabaseServerClient();
+    if (!supabase) {
+      return;
+    }
+    
     const stats = await getAffiliateStats(refCode);
     const milestones = [
       { threshold: 100, name: "First £100 in sales" },

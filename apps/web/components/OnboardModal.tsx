@@ -1,5 +1,31 @@
-export default function OnboardModal({ open, onClose }) {
+"use client";
+
+import { useState } from "react";
+import LuxButton from "@/components/LuxButton";
+
+interface OnboardModalProps {
+  open: boolean;
+  onClose: () => void;
+}
+
+export default function OnboardModal({ open, onClose }: OnboardModalProps) {
+  const [step, setStep] = useState(1);
+  
   if (!open) return null;
+  
+  const handleNext = () => {
+    if (step === 3) {
+      onClose();
+    } else {
+      setStep(step + 1);
+    }
+  };
+  
+  const handleClose = () => {
+    setStep(1);
+    onClose();
+  };
+  
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 animate-fadein">
       <div className="bg-white rounded-2xl p-8 shadow-2xl max-w-md w-full text-center border-4 border-orange-glow">
