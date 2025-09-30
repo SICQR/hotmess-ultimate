@@ -1,0 +1,57 @@
+---
+name: Supabase Discovery Audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  audit:
+    name: Run Supabase Discovery Kit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+          cache-dependency-path: >-
+            packages/hotmess-supabase-discovery-kit/package.json
+
+      - name: Install dependencies
+        working-directory: packages/hotmess-supabase-discovery-kit
+        run: pnpm install
+
+      - name: Run discovery script
+        working-directory: packages/hotmess-supabase-discovery-kit
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: pnpm run discover
+
+      - name: Upload audit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: supabase-audit-report
+          path: packages/hotmess-supabase-discovery-kit/output/report.md
+          if-no-files-found: error
+
+      - name: Upload JSON outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: supabase-audit-json
+          path: packages/hotmess-supabase-discovery-kit/output/json/
+          if-no-files-found: warn
